@@ -1,0 +1,12 @@
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\bin\Debug\net8.0\BooleanMinimizerLibrary.deps.json
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\bin\Debug\net8.0\BooleanMinimizerLibrary.dll
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\bin\Debug\net8.0\BooleanMinimizerLibrary.pdb
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.AssemblyInfoInputs.cache
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.AssemblyInfo.cs
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.csproj.CoreCompileInputs.cache
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.sourcelink.json
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.dll
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\refint\BooleanMinimizerLibrary.dll
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\BooleanMinimizerLibrary.pdb
+C:\Users\PogU\source\repos\BooleanMinimizator\BooleanMinimizerLibrary\obj\Debug\net8.0\ref\BooleanMinimizerLibrary.dll
