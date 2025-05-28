@@ -263,3 +263,74 @@ button:hover {
     .karnaugh-map tr:last-child td:last-child {
         border-bottom-right-radius: 5px;
     }
+
+    .stepByStep {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .solution-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .solution-section {
+        text-align: left;
+    }
+    
+    .solution-section h4 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #444;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background: #ccc;
+        margin: 20px 0;
+        opacity: 0.8;
+    }
+
+    /* Сброс центрирования только в блоке stepByStep */
+    .stepByStep .karnaugh-map {
+        margin-left: 0;
+        margin-right: auto;
+    }
+    /* Выравнивание заголовка и таблицы слева внутри stepByStep */
+    .stepByStep h3 {
+        text-align: left;
+    }
+
+    .karnaugh-explanation {
+        text-align: left;
+        font-size: 16px;
+        margin-top: 15px;
+        color: #333;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+    }
+
+    .area {
+        background-color: #ffeb3b;
+        font-weight: bold;
+        text-align: center;
+    }
+    .karnaugh-map .highlight {
+        background-color: #90ee90; /* светло-зелёный */
+    }
+
+    .karnaugh-map td.highlight {
+        background-color: #90ee90;
+        font-weight: bold;
+    }
