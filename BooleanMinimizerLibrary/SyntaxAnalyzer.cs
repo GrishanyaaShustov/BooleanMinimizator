@@ -21,26 +21,6 @@ namespace BooleanMinimizerLibrary
             return tree;
         }
 
-        public List<string> GetPOLIZ(Node node)
-        {
-            List<string> output = new List<string>();
-            ToPOLIZ(node, output);
-            return output;
-        }
-
-        private void ToPOLIZ(Node node, List<string> output)
-        {
-            if (node == null) return;
-
-            ToPOLIZ(node.Left, output);
-            ToPOLIZ(node.Right, output);
-
-            if (node.Type == NodeType.Variable || node.Type == NodeType.Constant || node.Type == NodeType.Vector)
-                output.Add(node.Value);
-            else
-                output.Add(NodeTypeToSymbol(node.Type));
-        }
-
         private string NodeTypeToSymbol(NodeType type) => type switch
         {
             NodeType.Not => "¬",
