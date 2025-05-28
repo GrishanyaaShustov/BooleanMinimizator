@@ -1,3 +1,5 @@
+using BooleanMinimizerLibrary;
+
 namespace BooleanMinimizator.Models
 {
     public class BooleanMinimizatorModel
@@ -5,6 +7,8 @@ namespace BooleanMinimizator.Models
         public string InputFunction { get; set; }  // сюда пользователь вводит функцию
 
         public string ResultMessage { get; set; }  // сюда выводится результат: успех или текст ошибки
+        
+        public bool IsSolved { get; set; }
 
         public string? PolizOutput { get; set; }   // сюда выводится ПОЛИЗ
 
@@ -23,6 +27,8 @@ namespace BooleanMinimizator.Models
         public string MDNFOutput { get; set; }      // Минимальная дизъюнктивная нормальная форма
 
         public List<List<string>> KarnaughMap { get; set; }
+        
+        public List<KarnaughMapBuilder.Area> Areas { get; set; }
         
     }
 }
