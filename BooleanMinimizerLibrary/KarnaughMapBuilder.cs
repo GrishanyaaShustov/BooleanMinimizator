@@ -91,17 +91,27 @@ namespace BooleanMinimizerLibrary
 
         public List<Area> FindAllMaximalAreas(List<List<string>> map)
         {
-            int rowCount = map.Count - 1;           // Без заголовка
-            int colCount = map[0].Count - 1;        // Без заголовка
-            var areas = new List<Area>();
-            bool[,] covered = new bool[rowCount, colCount];
-
+            int rowCount = map.Count - 1;       // Без заголовков
+            int colCount = map[0].Count - 1;
+            var allAreas = new List<Area>();
+            var ones = new HashSet<(int, int)>();
+        
+            // Собираем все позиции с "1"
+            for (int r = 0; r < rowCount; r++)
+            {
+                for (int c = 0; c < colCount; c++)
+                {
+                    if (map[r + 1][c + 1] == "1")
+                        ones.Add((r, c));
+                }
+            }
+        
+            // Все возможные прямоугольные области
             var possibleHeights = GetPowersOfTwoUpTo(rowCount);
             var possibleWidths = GetPowersOfTwoUpTo(colCount);
-
-            possibleHeights.Reverse();  // Сначала большие области
+            possibleHeights.Reverse();
             possibleWidths.Reverse();
-
+        
             foreach (int height in possibleHeights)
             {
                 foreach (int width in possibleWidths)
@@ -110,18 +120,45 @@ namespace BooleanMinimizerLibrary
                     {
                         for (int c = 0; c < colCount; c++)
                         {
-                            if (IsValidAreaWithWrap(map, covered, r, c, height, width))
+                            var area = new Area(r, c, height, width);
+                            var covered = area.GetCoveredCells(rowCount, colCount).ToList();
+                            if (covered.All(pos => ones.Contains(pos)))
                             {
-                                var area = new Area(r, c, height, width);
-                                areas.Add(area);
-                                MarkAreaWithWrap(covered, area, rowCount, colCount);
+                                allAreas.Add(area);
                             }
                         }
                     }
                 }
             }
-
-            return areas;
+        
+            // Жадно выбираем области, покрывающие максимум новых единиц
+            var result = new List<Area>();
+            var coveredCells = new HashSet<(int, int)>();
+        
+            while (coveredCells.Count < ones.Count)
+            {
+                Area bestArea = null;
+                int maxNew = 0;
+        
+                foreach (var area in allAreas)
+                {
+                    var cells = area.GetCoveredCells(rowCount, colCount).ToList();
+                    int newCount = cells.Count(c => !coveredCells.Contains(c));
+                    if (newCount > maxNew)
+                    {
+                        maxNew = newCount;
+                        bestArea = area;
+                    }
+                }
+        
+                if (bestArea == null) break; // Не осталось новых областей
+        
+                result.Add(bestArea);
+                foreach (var cell in bestArea.GetCoveredCells(rowCount, colCount))
+                    coveredCells.Add(cell);
+            }
+        
+            return result;
         }
         
         private bool IsValidAreaWithWrap(List<List<string>> map, bool[,] covered, int startRow, int startCol, int height, int width)
