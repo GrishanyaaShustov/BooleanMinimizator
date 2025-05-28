@@ -46,13 +46,6 @@
         </div>
     }
 
-    @* @if (Model.PolizOutput is not null) *@
-    @* { *@
-    @*     <div class="alert alert-secondary mt-3"> *@
-    @*         <strong>ПОЛИЗ функции:</strong> @Model.PolizOutput *@
-    @*     </div> *@
-    @* } *@
-
     @if (Model.VectorOutput is not null)
     {
         <div class="alert alert-info mt-3">
@@ -154,6 +147,127 @@
     }
     
 </div>
+
+@if (Model.IsSolved)
+{
+    <div class="stepByStep">
+        <hr />
+        <div class="solution-title">Пошаговое решение</div>
+        <hr />
+        <div class="solution-section">
+            <h4>Минимизация ДНФ</h4>
+        </div>
+        <hr />
+
+        @if (Model.KarnaughMap != null && Model.KarnaughMap.Any())
+        {
+            <div class="mt-3">
+                <h3>Карта Карно</h3>
+
+                <table class="karnaugh-map">
+                    @foreach (var row in Model.KarnaughMap)
+                    {
+                        <tr>
+                            @foreach (var cell in row)
+                            {
+                                if (row == Model.KarnaughMap.First())
+                                {
+                                    <th>@cell</th>
+                                }
+                                else if (cell == "1")
+                                {
+                                    <td class="one">@cell</td>
+                                }
+                                else if (cell == "0")
+                                {
+                                    <td class="zero">@cell</td>
+                                }
+                                else
+                                {
+                                    <td>@cell</td>
+                                }
+                            }
+                        </tr>
+                    }
+                </table>
+
+                <p class="karnaugh-explanation">
+                    Выделим на карте Карно прямоугольные области из единиц наибольшей площади, являющиеся степенями двойки, и выпишем соответствующие им конъюнкции.
+                </p>
+
+                @if (Model.Areas != null && Model.Areas.Any())
+                {
+                    <div class="areas-maps mt-4">
+                        <h4>Выделенные области:</h4>
+
+                        @for (int index = 0; index < Model.Areas.Count; index++)
+                        {
+                            var area = Model.Areas[index];
+
+                            var mapCopy = Model.KarnaughMap
+                                .Select(row => row.ToList())
+                                .ToList();
+
+                            // Размеры карты без заголовков
+                            int rowCount = mapCopy.Count;
+                            int colCount = mapCopy[0].Count;
+
+                            // Маска для выделения
+                            bool[,] highlightMask = new bool[rowCount, colCount];
+
+                            for (int r = area.StartRow; r < area.StartRow + area.Height; r++)
+                            {
+                                for (int c = area.StartCol; c < area.StartCol + area.Width; c++)
+                                {
+                                    int wrappedRow = ((r % (rowCount - 1)) + 1); // +1 — пропуск заголовка строк
+                                    int wrappedCol = ((c % (colCount - 1)) + 1); // +1 — пропуск заголовка столбцов
+
+                                    highlightMask[wrappedRow, wrappedCol] = true;
+                                }
+                            }
+
+                            <div class="highlight-area mt-4">
+                                <h5>Область №@(index + 1)</h5>
+                                <table class="karnaugh-map">
+                                    @for (int r = 0; r < rowCount; r++)
+                                    {
+                                        <tr>
+                                            @for (int c = 0; c < colCount; c++)
+                                            {
+                                                var cell = mapCopy[r][c];
+
+                                                if (r == 0)
+                                                {
+                                                    <th>@cell</th>
+                                                }
+                                                else if (highlightMask[r, c])
+                                                {
+                                                    <td class="highlight">@Model.KarnaughMap[r][c]</td>
+                                                }
+                                                else if (cell == "1")
+                                                {
+                                                    <td class="one">@cell</td>
+                                                }
+                                                else if (cell == "0")
+                                                {
+                                                    <td class="zero">@cell</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@cell</td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
 
 <section class="instructions">
     <h2>Как пользоваться калькулятором</h2>
