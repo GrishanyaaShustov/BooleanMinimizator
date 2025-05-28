@@ -25,7 +25,6 @@ namespace BooleanMinimizator.Controllers
                     var functionVectorBuilder = new FunctionVectorBuilder();
                     model.VectorOutput = functionVectorBuilder.BuildVector(rootNode);
                     model.TruthTable = functionVectorBuilder.BuildTruthTable(rootNode);
-                    model.PolizOutput = string.Join(" ", syntaxAnalyzer.GetPOLIZ(rootNode));
                     model.MDNFOutput = BooleanMinimizer.MinimizeSDNF(model.VectorOutput);
                     model.MKNFOutput = BooleanMinimizer.MinimizeSKNF(model.VectorOutput);
                     model.SKNFOutput = BooleanMinimizer.GetFullSKNF(model.VectorOutput);
@@ -34,12 +33,15 @@ namespace BooleanMinimizator.Controllers
                     // Добавлено построение карты Карно
                     var karnaughBuilder = new KarnaughMapBuilder();
                     model.KarnaughMap = karnaughBuilder.Build(rootNode);
-
+                    model.Areas = karnaughBuilder.FindAllMaximalAreas(model.KarnaughMap);
+                    
                     model.ResultMessage = "Функция успешно распознана!";
+                    model.IsSolved = true;
                 }
                 catch (Exception ex)
                 {
                     model.ResultMessage = $"Ошибка: {ex.Message}";
+                    model.IsSolved = false;
                 }
             }
             return View(model);
